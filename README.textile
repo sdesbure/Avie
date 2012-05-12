@@ -33,11 +33,10 @@ This is the only documentation.
 
 h4. Issues
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+still in very firt phasis project
 
 h2. Similar Projects
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 
 h2. Contributing
 
@@ -52,8 +51,12 @@ If you add functionality to this application, create an alternative implementati
 
 h2. Credits
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+RailsApp for the awesome app template.
 
 h2. License
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+h4. MIT License
+
+The Rails Apps Composer gem and its recipes are distributed under the MIT License.
+
+

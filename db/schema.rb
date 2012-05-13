@@ -11,7 +11,37 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120512180143) do
+ActiveRecord::Schema.define(:version => 20120513135800) do
+
+  create_table "account_units", :force => true do |t|
+    t.string   "name"
+    t.string   "code"
+    t.string   "morningstar_url"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  create_table "euro_funds", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "positions", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "support_id"
+    t.integer  "polymorphic_id"
+    t.float    "buy_price"
+    t.float    "sell_price"
+    t.float    "price_paid"
+    t.datetime "buy_date"
+    t.datetime "sell_date"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "positions", ["support_id"], :name => "index_positions_on_support_id"
+  add_index "positions", ["user_id"], :name => "index_positions_on_user_id"
 
   create_table "roles", :force => true do |t|
     t.string   "name"

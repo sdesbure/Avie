@@ -12,9 +12,13 @@ en:
       didnt_receive_unlock_instructions: "Didn't receive unlock instructions?"
       sign_in_with_omniauth: "Sign in with Omniauth"
     registrations:
+      current_password_label: "we need your current password to confirm your changes"
+      update: "Update"
+      cancel_my_account: "Cancel my account"
       recaptcha_error: "There was an error with the recaptcha code below. Please re-enter the code and click submit."
       unhappy?: "Unhappy?"
       sign_in: "Sign in"
       sign_out: "Sign out"
       sign_up: "Sign up"
+      leave_blank: "leave blank if you don't want to change it"
 

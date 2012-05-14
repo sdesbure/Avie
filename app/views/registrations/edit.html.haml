@@ -1,4 +1,4 @@
-%h2= t("devise.registrations.edit") + " #{resource.class.human_name}"
+%h2= t("devise.shared.edit")# + " #{resource.class.humanize}"
 
 = form_for(resource, :as => resource_name, 
                     :url => registration_path(resource_name), 

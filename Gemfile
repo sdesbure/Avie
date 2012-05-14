@@ -24,6 +24,9 @@ gem "devise", ">= 2.1.0.rc2"
 gem "cancan", ">= 1.6.7"
 gem "rolify", ">= 3.1.0"
 
+#rack-recaptcha to deal with captchas
+gem 'rack-recaptcha', :require => 'rack/recaptcha'
+
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'

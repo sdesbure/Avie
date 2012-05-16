@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120513135800) do
+ActiveRecord::Schema.define(:version => 20120516174656) do
 
   create_table "account_units", :force => true do |t|
     t.string   "name"
@@ -21,16 +21,43 @@ ActiveRecord::Schema.define(:version => 20120513135800) do
     t.datetime "updated_at",      :null => false
   end
 
+  create_table "brokers", :force => true do |t|
+    t.string   "name"
+    t.string   "website"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "euro_funds", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
+  create_table "insurers", :force => true do |t|
+    t.string   "name"
+    t.string   "website"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "life_insurances", :force => true do |t|
+    t.integer  "broker_id"
+    t.integer  "insurer_id"
+    t.string   "name"
+    t.string   "website"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "life_insurances", ["broker_id"], :name => "index_life_insurances_on_broker_id"
+  add_index "life_insurances", ["insurer_id"], :name => "index_life_insurances_on_insurer_id"
+
   create_table "positions", :force => true do |t|
     t.integer  "user_id"
     t.integer  "support_id"
     t.integer  "polymorphic_id"
+    t.integer  "insurance_id"
     t.float    "buy_price"
     t.float    "sell_price"
     t.float    "price_paid"
@@ -40,6 +67,7 @@ ActiveRecord::Schema.define(:version => 20120513135800) do
     t.datetime "updated_at",     :null => false
   end
 
+  add_index "positions", ["insurance_id"], :name => "index_positions_on_insurance_id"
   add_index "positions", ["support_id"], :name => "index_positions_on_support_id"
   add_index "positions", ["user_id"], :name => "index_positions_on_user_id"
 

@@ -3,6 +3,7 @@ class CreatePositions < ActiveRecord::Migration
     create_table :positions do |t|
       t.references :user
       t.references :support, :polymorphic
+      t.references :insurance
       t.float :buy_price
       t.float :sell_price
       t.float :price_paid
@@ -13,5 +14,6 @@ class CreatePositions < ActiveRecord::Migration
     end
     add_index :positions, :user_id
     add_index :positions, :support_id
+    add_index :positions, :insurance_id
   end
 end

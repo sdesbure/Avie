@@ -1,4 +1,43 @@
-%p
-  User: #{@user.name}
-%p
-  Email: #{@user.email if @user.email}
+.span2
+.span4
+  %h1= "#{@user.class.model_name.human} #{@user.name}"
+  .well
+    %table.table.table-striped
+      %tbody
+        %tr
+          %td=t "name"
+          %td= @user.name
+        %tr
+          %td=t "email"
+          %td= @user.email
+        %tr
+          %td=t "contracts"
+          %td
+            - if @user.life_insurance_contracts.any?
+              %table.table.table-striped.table-condensed.table-bordered
+                = render :partial => "life_insurance_contracts/contract_table", :locals => {:life_insurance_contracts => @user.life_insurance_contracts}
+            - if can? :create, LifeInsuranceContract
+              = link_to t("new.contract"), new_life_insurance_contract_path, :class => "btn btn-primary"
+        %tr
+          - if current_page?(:action => 'show')
+            %td=t "active_positions"
+          - else
+            %td=t "positions"
+          %td
+            %table.table.table-striped.table-condensed.table-bordered
+              - if current_page?(:action => 'show')
+                - if @user.positions.active.any?
+                  =# render :partial => "positions/position_table", :locals => {:positions => @user.positions.active}
+                =# link_to t("all_positions"), user_show_all_positions_path(@user)
+              - else
+                - if @user.positions.any?
+                  =# render :partial => "positions/position_table", :locals => {:positions => @user.positions}
+                =# link_to t("active_positions"), @user
+              - if can? :create, Position
+                = link_to t("new.position"), new_position_path, :class => "btn btn-primary"
+
+  - if can? :update, @user
+    = link_to t('shared.edit'), edit_user_registration_path(@user), :class => 'btn'
+  - if current_user.has_role? :admin
+    = link_to t('shared.back_users'), users_path, :class => 'btn'
+  = link_to t('shared.back'), root_path, :class => 'btn'

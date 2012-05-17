@@ -1,0 +1,2 @@
+module LifeInsuranceContractsHelper
+end

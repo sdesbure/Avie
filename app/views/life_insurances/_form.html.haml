@@ -1,0 +1,12 @@
+.well
+  = simple_form_for(@life_insurance) do |f|
+    = f.error_notification
+
+    .form-inputs
+      = f.input :name
+      = f.input :website
+      = f.association :insurer
+      = f.association :broker
+
+    .form-actions
+      = f.button :submit

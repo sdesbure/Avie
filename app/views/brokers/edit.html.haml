@@ -1,0 +1,12 @@
+.span2
+.span7
+  %h1=t "editing.broker"
+
+  = render 'form'
+
+  - if can? :read, @broker
+    = link_to t('shared.show'), @broker, :class => 'btn'
+    = link_to t('shared.back'), brokers_path, :class => 'btn'
+  - else
+    = link_to t('shared.back'), root_path, :class => 'btn'
+

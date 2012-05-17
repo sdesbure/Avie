@@ -1,5 +1,6 @@
 class LifeInsurance < ActiveRecord::Base
   belongs_to :broker
   belongs_to :insurer
-  attr_accessible :name, :website
+  has_many :life_insurance_contracts
+  attr_accessible :name, :website, :insurer_id, :broker_id
 end

@@ -1,0 +1,29 @@
+.span2
+.span4
+  %h1= "#{@insurer.class.model_name.human} #{@insurer.name}"
+  .well
+    %table.table.table-striped
+      %tbody
+        %tr
+          %td=t "name"
+          %td= @insurer.name
+        %tr
+          %td=t "website"
+          %td= link_to @insurer.website, @insurer.website
+        %tr
+          %td=t "insurances"
+          %td
+            - unless @insurer.life_insurances.empty?
+              %table.table.table-striped.table-condensed.table-bordered
+                = render :partial => "life_insurances/insurance_table", :locals => {:life_insurances => @insurer.life_insurances}
+        %tr
+          %td=t "nb_insurance_contracts"
+          %td= @insurer.life_insurance_contracts.count
+    - if user_signed_in? && current_user.insurers.map{|i| i.id}.include?(@insurer.id)
+      %h2=t "user.list.contracts_insurer"
+      %table.table.table-striped.table-condensed.table-bordered
+        = render :partial => "life_insurance_contracts/contract_table", :locals => {:life_insurance_contracts => current_user.contracts(@insurer)}
+
+  - if can? :update, @insurer
+    = link_to t('shared.edit'), edit_insurer_path(@insurer), :class => 'btn'
+  = link_to t('shared.back'), insurers_path, :class => 'btn'

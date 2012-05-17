@@ -1,0 +1,10 @@
+.well
+  = simple_form_for @insurer do |f|
+    = f.error_notification
+
+    .form-inputs
+      = f.input :name, :label => t("insurer.name")
+      = f.input :website, :label => t("insurer.website")
+
+    .form-actions
+      = f.button :submit

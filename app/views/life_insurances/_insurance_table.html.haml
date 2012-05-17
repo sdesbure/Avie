@@ -1,0 +1,35 @@
+%thead
+  %tr
+    %th=t "name"
+    %th=t "website"
+    - unless current_page?(:controller => 'brokers', :action => "show")
+      %th=t "broker"
+    - unless current_page?(:controller => 'insurers', :action => "show")
+      %th=t "insurer"
+    - unless current_page?(:controller => 'brokers', :action => "show") || current_page?(:controller => 'insurers', :action => "show")
+      %th=t "nb_customers"
+      - if can? :modify, LifeInsurance && life_insurances.any?
+        %th
+%tbody
+  - life_insurances.each do |life_insurance|
+    %tr
+      %td= link_to life_insurance.name, life_insurance
+      %td= link_to life_insurance.website, life_insurance.website
+      - unless current_page?(:controller => 'brokers', :action => "show")
+        - if can? :read, life_insurance.broker
+          %td= link_to life_insurance.broker.name, life_insurance.broker unless life_insurance.broker.nil?
+        - else
+          %td= life_insurance.broker.name unless life_insurance.broker.nil?
+      - unless current_page?(:controller => 'insurers', :action => "show")
+        - if can? :read, life_insurance.insurer
+          %td= link_to life_insurance.insurer.name, life_insurance.insurer unless life_insurance.insurer.nil?
+        - else
+          %td= life_insurance.insurer.name unless life_insurance.insurer.nil?
+      - unless current_page?(:controller => 'brokers', :action => "show") || current_page?(:controller => 'insurers', :action => "show")
+        %td= life_insurance.life_insurance_contracts.count
+        - if can? :modify, life_insurance
+          %td
+            - if can? :update, life_insurance
+              = link_to t('shared.edit'), edit_life_insurance_path(life_insurance), :class => "btn"
+            - if can? :destroy, life_insurance
+              = link_to t('shared.destroy'), life_insurance, :confirm => t('shared.confirm'), :method => :delete, :class => "btn btn-danger"

@@ -1,0 +1,17 @@
+%h1 Listing euro_funds
+
+%table
+  %tr
+    %th
+    %th
+    %th
+
+  - @euro_funds.each do |euro_fund|
+    %tr
+      %td= link_to 'Show', euro_fund
+      %td= link_to 'Edit', edit_euro_fund_path(euro_fund)
+      %td= link_to 'Destroy', euro_fund, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Euro fund', new_euro_fund_path

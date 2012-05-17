@@ -1,0 +1,41 @@
+.span2
+.span4
+  %h1= "#{@life_insurance_contract.class.model_name.human} #{@life_insurance_contract.contract_number}"
+  .well
+    %table.table.table-striped
+      %tbody
+        %tr
+          %td=t "contract_number"
+          %td= @life_insurance_contract.contract_number
+        %tr
+          %td=t "insurance"
+          - if can? :read, @life_insurance_contract.life_insurance
+            %td= link_to @life_insurance_contract.life_insurance.name, @life_insurance_contract.life_insurance unless @life_insurance_contract.life_insurance.nil?
+          - else
+            %td= @life_insurance_contract.life_insurance.name unless @life_insurance_contract.life_insurance.nil?
+        - if user_signed_in? && current_user.id != @life_insurance_contract.user_id && can?(:read, @life_insurance_contract.user)
+          %tr
+            %td=t "user"
+            %td= link_to @life_insurance_contract.user.name, @life_insurance_contract.user unless @life_insurance_contract.user.nil?
+        %tr
+          - if current_page?(:action => 'show')
+            %td=t "active_positions"
+          - else
+            %td=t "positions"
+          %td
+            %table.table.table-striped.table-condensed.table-bordered
+              - if current_page?(:action => 'show')
+                =# render :partial => "positions/position_table", :locals => {:positions => @life_insurance_contract.positions.active}
+                =# link_to t("all_positions"), life_insurance_contract_show_all_positions_path(@life_insurance_contract)
+              - else
+                =# render :partial => "positions/position_table", :locals => {:positions => @life_insurance_contract.positions)
+                =# link_to t("active_positions), @life_insurance_contract
+              - if can? :create, Position
+                = link_to t("new.position"), new_position_path(:life_insurance_contract_id => @life_insurance_contract.id), :class => "btn btn-primary"
+
+  - if can? :update, @life_insurance_contract
+    = link_to t('shared.edit'), edit_life_insurance_contract_path(@life_insurance_contract), :class => 'btn'
+  - if can? :index, LifeInsuranceContract
+    = link_to t('shared.back'), life_insurance_contracts_path, :class => 'btn'
+  - else
+    = link_to t('shared.back'), root_path, :class => 'btn'

@@ -1,0 +1,13 @@
+.span2
+.span7
+  %h1=t "editing.contract"
+
+  = render 'form'
+
+  - if can? :read, @life_insurance_contract
+    = link_to t('shared.show'), @life_insurance_contract, :class => 'btn'
+  - if can? :read, LifeInsuranceContract
+    = link_to t('shared.back'), life_insurance_contract_path, :class => 'btn'
+  - else
+    = link_to t('shared.back'), root_path, :class => 'btn'
+

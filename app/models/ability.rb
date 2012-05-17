@@ -2,11 +2,25 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
+    alias_action :update, :destroy, :to => :modify
+    alias_action :index, :to => :read_index
     user ||= User.new # guest user (not logged in)
     if user.has_role? :admin
       can :manage, :all
     else
-      can :read, :all
+      unless user.new_record?
+        can [:create, :update], [Broker, Insurer, LifeInsurance, AccountUnit, EuroFund]
+        can :manage, [LifeInsuranceContract, Position], :user_id => user.id
+        can :modify, User, :id => user.id
+        can :read, [Broker, Insurer, LifeInsurance, AccountUnit, EuroFund, LifeInsuranceContract, Position]
+        can :read, User, :id => user.id
+        cannot :index, User
+        cannot :index, LifeInsuranceContract
+
+      else
+        can :read, :all
+        cannot :read, [LifeInsuranceContract, Position, User]
+      end
     end
     # Define abilities for the passed in user here. For example:
     #

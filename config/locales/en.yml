@@ -3,6 +3,56 @@
 
 en:
   hello: "Hello world"
+  Home: "Home"
+  hi: "Hi"
+  ep: "!"
+  nb_customers: "Number of customers"
+  nb_insurances: "Number of life insurances"
+  best_capital_gain: "best capital gain"
+  worst_capital_gain: "worst capital gain"
+  most_used_insurer: "most used insurer"
+  most_used_broker: "most used broker"
+  insurances: "Life insurances"
+  broker: "Broker"
+  insurer: "Insurer"
+  nb_insurance_contracts: "Number of contracts"
+  listing:
+    insurers: "List of the insurers"
+    brokers: "List of the brokers"
+    life_insurances: "List of the life insurances"
+  name: "Name"
+  website: "Website"
+  new:
+    insurer: "New insurer"
+    broker: "New broker"
+    life_insurance: "New life insurance"
   shared:
     confirm: "Are you sure?"
+    edit: "Edit"
+    destroy: "Destroy"
     back: "Back"
+    show: "Show"
+  activerecord:
+    models:
+      insurer: "Insurer"
+      broker: "Broker"
+      life_insurance: "Life insurance"
+      life_insurance_contract: "Contract"
+      position: "Position"
+      user: "User"
+      account_unit: "Account unit"
+      euro_fund: 'Euro Fund'
+    attributes:
+      user:
+        email: "E-mail"
+        password: "Password"
+        password_confirmation: "Password confirmation"
+      position:
+        buy_price: "Buy price"
+        sell_price: "Sell price"
+        price_paid: "Price paid"
+        buy_date: "Buy date"
+        sell_date: "Sell date"
+      account_unit:
+        code: "ISIN code"
+        morningstar_url: "Morningstart webpage"

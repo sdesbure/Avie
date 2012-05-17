@@ -1,0 +1,10 @@
+.well
+  = simple_form_for @broker do |f|
+    = f.error_notification
+
+    .form-inputs
+      = f.input :name, :label => t("broker.name")
+      = f.input :website, :label => t("broker.website")
+
+    .form-actions
+      = f.button :submit

@@ -11,7 +11,7 @@
                     init_translations unless initialized?
                     keys = I18n.normalize_keys(locale, key, scope, options[:separator])
           
-                    Rails.logger.debug "I18N keys: #{keys}"  if ENV['I18N_DEBUG']
+                    Rails.logger.debug "I18N keys: #{keys}" 
           
                     keys.inject(translations) do |result, _key|
                       _key = _key.to_sym
@@ -19,7 +19,7 @@
                       result = result[_key]
                       result = resolve(locale, _key, result, options.merge(:scope => nil)) if result.is_a?(Symbol)
           
-                      Rails.logger.debug "\t\t => " + result.to_s + "\n" if ENV['I18N_DEBUG'] && (result.class == String)
+                      Rails.logger.debug "\t\t => " + result.to_s + "\n" if (result.class == String)
           
                       result
                     end

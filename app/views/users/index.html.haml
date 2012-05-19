@@ -1,6 +1,4 @@
-%h2 Users
-- @users.each do |user|
-  %br/
-  #{link_to user.email, user} signed up #{user.created_at.to_date}
-
-= will_paginate
+%h1=t "listing.users"
+.well
+  %table.table.table-striped
+    = render :partial => "user_table", :locals => {:users => @users}

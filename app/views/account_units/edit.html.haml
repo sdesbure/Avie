@@ -1,7 +1,20 @@
-%h1 Editing account_unit
+.span2
+.span7
+  %h1=t "editing.account_unit"
 
-= render 'form'
+  = render 'form'
 
-= link_to 'Show', @account_unit
-\|
-= link_to 'Back', account_units_path
+  .btn-group
+    - if can? :index, AccountUnit
+      = link_to account_unit_path, :class => 'btn' do
+        %i.icon-arrow-left
+        =t 'shared.back'  
+    - else
+      = link_to root_path, :class => 'btn' do
+        %i.icon-user
+        =t 'shared.back_home'
+    - if can? :read, @account_unit
+      = link_to @account_unit, :class => 'btn' do
+        %i.icon-eye-open
+        =t 'shared.show'
+

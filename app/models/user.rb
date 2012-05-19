@@ -26,17 +26,11 @@ class User < ActiveRecord::Base
 
   def contracts(contract_owner)
     unless contract_owner.nil?
-      method = case contract_owner.kind_of?
-               when LifeInsurance
-                 "life_insurance"
-               when Broker
-                 "broker"
-               when Insurer
-                 "insurer"
-               else
-                 "answer_nil"
-               end
-      life_insurance_contracts.map{|lic| lic.send(method)}.compact.select{|o| o.id == contract_owner.id}
+      method = "life_insurance" if  contract_owner.kind_of? LifeInsurance
+      method = "broker" if  contract_owner.kind_of? Broker
+      method = "insurer" if  contract_owner.kind_of? Insurer
+      method ||= "answer_nil"
+      life_insurance_contracts.select{|lic| lic.send(method).id == contract_owner.id}
     else
       []
     end

@@ -1,7 +1,20 @@
-%h1 Editing euro_fund
+.span2
+.span7
+  %h1=t "editing.euro_fund"
 
-= render 'form'
+  = render 'form'
 
-= link_to 'Show', @euro_fund
-\|
-= link_to 'Back', euro_funds_path
+  .btn-group
+    - if can? :index, EuroFund
+      = link_to account_unit_path, :class => 'btn' do
+        %i.icon-arrow-left
+        =t 'shared.back'  
+    - else
+      = link_to root_path, :class => 'btn' do
+        %i.icon-user
+        =t 'shared.back_home'
+    - if can? :read, @euro_fund
+      = link_to @euro_fund, :class => 'btn' do
+        %i.icon-eye-open
+        =t 'shared.show'
+

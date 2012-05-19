@@ -1,10 +1,10 @@
-.span2
-.span7
-  %h1=t "listing.life_insurances"
-  .well
-    %table.table.table-striped
-      = render :partial => "insurance_table", :locals => {:life_insurances => @life_insurances}
-  %br
+%h1=t "listing.life_insurances"
+.well
+  %table.table.table-striped
+    = render :partial => "insurance_table", :locals => {:life_insurances => @life_insurances}
+%br
 
-  -if can? :create, LifeInsurance
-    = link_to t('new.life_insurance'), new_life_insurance_path, :class => "btn"
+-if can? :create, LifeInsurance
+  = link_to new_life_insurance_path, :class => "btn" do
+    %i.icon-plus
+    =t 'new.life_insurance'

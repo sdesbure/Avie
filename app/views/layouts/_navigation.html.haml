@@ -5,6 +5,8 @@
   %li= link_to(Insurer.model_name.human, insurers_path)
   %li= link_to(Broker.model_name.human, brokers_path)
   %li= link_to(LifeInsurance.model_name.human, life_insurances_path)
+  %li= link_to(AccountUnit.model_name.human, account_units_path)
+  %li= link_to(EuroFund.model_name.human, euro_funds_path)
   %li.divider-vertical
 %ul.nav.pull-right
   - if user_signed_in?

@@ -4,7 +4,12 @@
 
   = render 'form'
 
-  - if user_signed_in?
-    = link_to t('shared.back_home'), current_user, :class => "btn"
-  - if can? :index, LifeInsuranceContract
-    = link_to t('shared.back'), life_insurance_contracts_path, :class => "btn"
+  .btn-group
+    - if user_signed_in?
+      = link_to current_user, :class => "btn" do
+        %i.icon-user
+        =t 'shared.back_home'
+    - if can? :index, LifeInsuranceContract
+      = link_to life_insurance_contracts_path, :class => "btn" do
+        %i.icon-arrow-left
+        =t 'shared.back'

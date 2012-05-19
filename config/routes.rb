@@ -10,6 +10,6 @@ Avie::Application.routes.draw do
   resources :life_insurances
   resources :life_insurance_contracts
   resources :positions
-  resources :acount_units
+  resources :account_units
   resources :euro_funds
 end

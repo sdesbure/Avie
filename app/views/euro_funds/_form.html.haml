@@ -1,7 +1,9 @@
-= simple_form_for(@euro_fund) do |f|
-  = f.error_notification
+.well
+  = simple_form_for(@euro_fund) do |f|
+    = f.error_notification
 
-  .form-inputs
+    .form-inputs
+      = f.input :name
 
-  .form-actions
-    = f.button :submit
+    .form-actions
+      = f.button :submit

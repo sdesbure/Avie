@@ -1,3 +1,4 @@
+- dont_show_modify_buttons = current_page?(:controller => 'life_insurances', :action => "show") || current_page?(:controller => 'users', :action => "show") || current_page?(:controller => 'brokers', :action => "show") || current_page?(:controller => 'insurers', :action => "show")
 %thead
   %tr
     %th=t "contract_number"
@@ -5,10 +6,10 @@
       %th=t "user"
     - unless current_page?(:controller => 'life_insurances', :action => "show")
       %th=t "life_insurance"
-      %th=t "nb_active_positions"
-      %th=t "nb_positions"
-      - if can? :modify, LifeInsuranceContract && life_insurance_contracts.any?
-        %th
+    %th=t "nb_active_positions"
+    %th=t "nb_positions"
+    - unless cannot?(:modify, LifeInsuranceContract) || life_insurance_contracts.empty? || dont_show_modify_buttons
+      %th
 %tbody
   - life_insurance_contracts.each do |life_insurance_contract|
     %tr
@@ -25,9 +26,13 @@
           %td= life_insurance_contract.life_insurance.name unless life_insurance_contract.life_insurance.nil?
       %td= life_insurance_contract.positions.active.count
       %td= life_insurance_contract.positions.count
-      - if can? :modify, life_insurance_contract && (!current_page?(:controller => 'life_insurances', :action => "show") || !current_page?(:controller => 'users', :action => "show"))
+      - unless cannot?(:modify, life_insurance_contract) || dont_show_modify_buttons
         %td
           - if can? :update, life_insurance_contract
-            = link_to t('shared.edit'), edit_life_insurance_contract_path(life_insurance_contract), :class => "btn"
+            = link_to edit_life_insurance_contract_path(life_insurance_contract), :class => "btn" do
+              %i.icon-edit
+              =t 'shared.edit'
           - if can? :destroy, life_insurance_contract
-            = link_to t('shared.destroy'), life_insurance_contract, :confirm => t('shared.confirm'), :method => :delete, :class => "btn btn-danger"
+            = link_to life_insurance_contract, :confirm => t('shared.confirm'), :method => :delete, :class => "btn btn-danger" do
+              %i.icon-trash
+              =t 'shared.destroy'

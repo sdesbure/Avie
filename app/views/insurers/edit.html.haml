@@ -4,9 +4,17 @@
 
   = render 'form'
 
-  - if can? :read, @insurer
-    = link_to t('shared.show'), @insurer, :class => 'btn'
-    = link_to t('shared.back'), insurers_path, :class => 'btn'
-  - else
-    = link_to t('shared.back'), root_path, :class => 'btn'
+  .btn-group
+    - if can? :index, Insurer
+      = link_to insurers_path, :class => 'btn' do
+        %i.icon-arrow-left
+        =t 'shared.back'  
+    - else
+      = link_to root_path, :class => 'btn' do
+        %i.icon-user
+        =t 'shared.back'
+    - if can? :read, @insurer
+      = link_to @insurer, :class => 'btn' do
+        %i.icon-eye-open
+        =t 'shared.show'
 

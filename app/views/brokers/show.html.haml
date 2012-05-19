@@ -5,10 +5,10 @@
     %table.table.table-striped
       %tbody
         %tr
-          %td=t "name"
+          %td=t "attributes.name"
           %td= @broker.name
         %tr
-          %td=t "website"
+          %td=t "attributes.website"
           %td= link_to @broker.website, @broker.website
         %tr
           - if can? :index, LifeInsurance
@@ -32,7 +32,7 @@
                 %table.table.table-striped.table-condensed.table-bordered
                   = render :partial => "life_insurance_contracts/contract_table", :locals => {:life_insurance_contracts => @broker.life_insurance_contracts}
           - else
-            %td=t "nb_insurance_contracts"
+            %td=t "nb_contracts"
             %td= @broker.life_insurance_contracts.count
         - if user_signed_in? && current_user.contracts(@broker).any?
           %tr

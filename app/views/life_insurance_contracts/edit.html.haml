@@ -7,14 +7,13 @@
   .btn-group
     - if can? :index, LifeInsuranceContract
       = link_to life_insurance_contract_path, :class => 'btn' do
-          %i.icon-arrow-left
-          =t 'shared.back'  
+        %i.icon-arrow-left
+        =t 'shared.back'  
     - else
       = link_to root_path, :class => 'btn' do
-          %i.icon-user
-          =t 'shared.back'
+        %i.icon-user
+        =t 'shared.back'
     - if can? :read, @life_insurance_contract
       = link_to @life_insurance_contract, :class => 'btn' do
-          %i.icon-eye-open
-          =t 'shared.show'
-
+        %i.icon-eye-open
+        =t 'shared.show'

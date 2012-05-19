@@ -5,27 +5,27 @@
     %table.table.table-striped
       %tbody
         %tr
-          %td=t "name"
+          %td=t "attributes.name"
           %td= @life_insurance.name
         %tr
-          %td=t "website"
+          %td=t "attributes.website"
           %td= link_to @life_insurance.website, @life_insurance.website
         %tr
-          %td=t "insurer"
+          %td=t "activerecord.models.insurer"
           %td
             - if can? :read, @life_insurance.insurer
               = link_to @life_insurance.insurer.name, @life_insurance.insurer unless @life_insurance.insurer.nil?
             - else
               = @life_insurance.insurer.name unless @life_insurance.insurer.nil?
         %tr
-          %td=t "broker"
+          %td=t "activerecord.models.broker"
           %td
             - if can? :read, @life_insurance.broker
               = link_to @life_insurance.broker.name, @life_insurance.broker unless @life_insurance.broker.nil?
             - else
               = @life_insurance.broker.name unless @life_insurance.broker.nil?
         %tr
-          %td=t "nb_insurance_contracts"
+          %td=t "nb_contracts"
           %td= @life_insurance.life_insurance_contracts.count
         - if can? :index, LifeInsuranceContract
           %tr

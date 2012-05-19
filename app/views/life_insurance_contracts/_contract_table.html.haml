@@ -1,11 +1,11 @@
 - dont_show_modify_buttons = current_page?(:controller => 'life_insurances', :action => "show") || current_page?(:controller => 'users', :action => "show") || current_page?(:controller => 'brokers', :action => "show") || current_page?(:controller => 'insurers', :action => "show")
 %thead
   %tr
-    %th=t "contract_number"
+    %th=t "attributes.contract_number"
     - unless current_page?(:controller => 'users', :action => "show")
-      %th=t "user"
+      %th=t "activerecord.models.user"
     - unless current_page?(:controller => 'life_insurances', :action => "show")
-      %th=t "life_insurance"
+      %th=t "activerecord.models.life_insurance"
     %th=t "nb_active_positions"
     %th=t "nb_positions"
     - unless cannot?(:modify, LifeInsuranceContract) || life_insurance_contracts.empty? || dont_show_modify_buttons

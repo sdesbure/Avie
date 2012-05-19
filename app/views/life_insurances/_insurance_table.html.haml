@@ -1,11 +1,11 @@
 %thead
   %tr
-    %th=t "name"
-    %th=t "website"
+    %th=t "attributes.name"
+    %th=t "attributes.website"
     - unless current_page?(:controller => 'brokers', :action => "show")
-      %th=t "broker"
+      %th=t "activerecord.models.broker"
     - unless current_page?(:controller => 'insurers', :action => "show")
-      %th=t "insurer"
+      %th=t "activerecord.models.insurer"
     - unless current_page?(:controller => 'brokers', :action => "show") || current_page?(:controller => 'insurers', :action => "show")
       %th=t "nb_customers"
       - if can? :modify, LifeInsurance && life_insurances.any?

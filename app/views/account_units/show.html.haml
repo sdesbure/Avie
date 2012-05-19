@@ -5,13 +5,13 @@
     %table.table.table-striped
       %tbody
         %tr
-          %td=t "name"
+          %td=t "attributes.name"
           %td= @account_unit.name
         %tr
-          %td=t "code"
+          %td=t "attributes.code"
           %td= @account_unit.code
         %tr
-          %td=t "morningstar_url"
+          %td=t "attributes.morningstar_url"
           %td= link_to @account_unit.morningstar_url 
         %tr
           - if can?(:index, User)
@@ -39,7 +39,7 @@
             %td= @account_unit.life_insurance_contracts.count
         %tr
           %td
-            =t "life_insurances"
+            =t "insurances"
             %span.badge.badge-info= @account_unit.life_insurances.count
           %td
           - unless @account_unit.life_insurances.empty?

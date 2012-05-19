@@ -5,7 +5,7 @@
     %table.table.table-striped
       %tbody
         %tr
-          %td=t "name"
+          %td=t "attributes.name"
           %td= @euro_fund.name
         %tr
           - if can?(:index, User)
@@ -33,7 +33,7 @@
             %td= @euro_fund.life_insurance_contracts.count
         %tr
           %td
-            =t "life_insurances"
+            =t "insurances"
             %span.badge.badge-info= @euro_fund.life_insurances.count
           %td
           - unless @euro_fund.life_insurances.empty?

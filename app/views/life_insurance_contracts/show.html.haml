@@ -5,17 +5,17 @@
     %table.table.table-striped
       %tbody
         %tr
-          %td=t "contract_number"
+          %td=t "attributes.contract_number"
           %td= @life_insurance_contract.contract_number
         %tr
-          %td=t "insurance"
+          %td=t "activerecord.models.life_insurance"
           - if can? :read, @life_insurance_contract.life_insurance
             %td= link_to @life_insurance_contract.life_insurance.name, @life_insurance_contract.life_insurance unless @life_insurance_contract.life_insurance.nil?
           - else
             %td= @life_insurance_contract.life_insurance.name unless @life_insurance_contract.life_insurance.nil?
         - if user_signed_in? && current_user.id != @life_insurance_contract.user_id && can?(:read, @life_insurance_contract.user)
           %tr
-            %td=t "user"
+            %td=t "activerecord.models.user"
             %td= link_to @life_insurance_contract.user.name, @life_insurance_contract.user unless @life_insurance_contract.user.nil?
         %tr
           - if current_page?(:action => 'show')
@@ -27,17 +27,18 @@
               =t "positions"
               %span.badge.badge-info= @life_insurance_contract.positions.count
           %td
-            %table.table.table-striped.table-condensed.table-bordered
-              - if current_page?(:action => 'show')
-                =# render :partial => "positions/position_table", :locals => {:positions => @life_insurance_contract.positions.active}
-                =# link_to t("all_positions"), show_all_positions_life_insurance_contract_path(@life_insurance_contract), :class => "btn"
-              - else
-                =# render :partial => "positions/position_table", :locals => {:positions => @life_insurance_contract.positions), :class => "btn"
-                =# link_to t("active_positions), @life_insurance_contract
-              - if can? :create, Position
-                = link_to new_position_path(:life_insurance_contract_id => @life_insurance_contract.id), :class => "btn btn-primary btn-small" do
-                  %i.icon-plus
-                  =t "new.position"
+            - unless (current_page?(:action => 'show') && @life_insurance_contract.positions.active.empty?) || (!current_page?(:action => 'show') && @life_insurance_contract.positions.empty?)
+              %table.table.table-striped.table-condensed.table-bordered
+                - if current_page?(:action => 'show')
+                  =# render :partial => "positions/position_table", :locals => {:positions => @life_insurance_contract.positions.active}
+                  =# link_to t("all_positions"), show_all_positions_life_insurance_contract_path(@life_insurance_contract), :class => "btn"
+                - else
+                  =# render :partial => "positions/position_table", :locals => {:positions => @life_insurance_contract.positions), :class => "btn"
+                  =# link_to t("active_positions), @life_insurance_contract
+            - if can? :create, Position
+              = link_to new_position_path(:life_insurance_contract_id => @life_insurance_contract.id), :class => "btn btn-primary btn-small" do
+                %i.icon-plus
+                =t "new.position"
 
   .btn-group
     - if can? :index, LifeInsuranceContract
@@ -52,4 +53,3 @@
       = link_to edit_life_insurance_contract_path(@life_insurance_contract), :class => 'btn' do
         %i.icon-edit
         =t 'shared.edit'
-

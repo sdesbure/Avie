@@ -3,8 +3,8 @@
   %table.table.table-striped
     %thead
       %tr
-        %th=t "name"
-        %th=t "website"
+        %th=t "attributes.name"
+        %th=t "attributes.website"
         %th=t "nb_insurances"
         %th=t "nb_customers"
         - if can? :modify, Broker && @brokers.any?

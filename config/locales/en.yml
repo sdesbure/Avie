@@ -25,6 +25,7 @@ en:
   active_positions: "Active positions"
   positions: "Positions"
   administrator_only: "This page is for administrators only"
+  support_type: "Support type"
   user:
     home: "My Page"
     list:
@@ -38,7 +39,7 @@ en:
     contract: "List of the contracts"
     account_unit: "List of the account units"
     euro_fund: "List of the Euro funds"
-    position: "List of the positions"
+    positions: "List of the positions"
     users: "List of the users"
   attributes:
     name: "Name"
@@ -47,6 +48,11 @@ en:
     code: "ISIN code"
     morningstar_url: "Morningstar webpage"
     contract_number: "Contract number"
+    buy_price: "Buy price"
+    sell_price: "Sell price"
+    price_paid: "Price paid"
+    buy_date: "Buy date"
+    sell_date: "Sell date"
   new:
     insurer: "New insurer"
     broker: "New broker"
@@ -81,6 +87,7 @@ en:
       user: "User"
       account_unit: "Account unit"
       euro_fund: 'Euro Fund'
+      support: "Support"
     attributes:
       user:
         email: "E-mail"

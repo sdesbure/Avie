@@ -1,0 +1,48 @@
+%thead
+  %tr
+    %th=t "activerecord.models.user"
+    %th=t "activerecord.models.support"
+    %th=t "support_type"
+    %th=t "activerecord.models.life_insurance_contract"
+    %th=t "attributes.buy_price"
+    %th=t "attributes.sell_price"
+    %th=t "attributes.price_paid"
+    %th=t "attributes.buy_date"
+    %th=t "attributes.sell_date"
+    - if can? :modify, Position && positions.any? && current_page?(:action => 'index')
+      %th
+%tbody
+  - positions.each do |position|
+    %tr
+      - if can? :read, position.user
+        %td= link_to position.user_name, position.user
+      - else
+        %td= position.users_name
+      - if can? :read, position.support
+        %td= link_to position.support_name, position.support
+      - else
+        %td= position.support_name
+      %td= position.support.class.model_name.human unless position.support.nil?
+      - if can? :read, position.life_insurance_contract
+        %td= link_to position.life_insurance_contract_to_s, position.life_insurance_contract
+      - else
+        %td= position.life_insurance_contract_to_s
+      %td= position.buy_price
+      %td= position.sell_price
+      %td= position.price_paid
+      %td= position.buy_date
+      %td= position.sell_date
+      - if can? :modify, position && current_page?(:action => 'index')
+        %td
+          - if can? :update, position
+            - link_class = "btn"
+            - link_class += "btn-warning" if !position.user.nil? && current_user.id != position.user.id
+            = link_to edit_position_path(position), :class => link_class do
+              %i.icon-edit
+              =t 'shared.edit'
+          - if can? :destroy, position
+            = link_to position, :confirm => t('shared.confirm'), :method => :delete, :class => "btn btn-danger" do
+              %i.icon-trash
+              =t 'shared.destroy'
+
+

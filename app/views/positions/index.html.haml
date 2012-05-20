@@ -1,17 +1,10 @@
-%h1 Listing positions
-
-%table
-  %tr
-    %th
-    %th
-    %th
-
-  - @positions.each do |position|
-    %tr
-      %td= link_to 'Show', position
-      %td= link_to 'Edit', edit_position_path(position)
-      %td= link_to 'Destroy', position, :confirm => 'Are you sure?', :method => :delete
-
+%h1=t "listing.positions"
+.well
+  %table.table.table-striped
+    = render :partial => 'position_table', :locals => {:positions => @positions}
 %br
 
-= link_to 'New Position', new_position_path
+- if can? :create, Position
+  = link_to new_position_path, :class => "btn" do
+    %i.icon-plus
+    =t 'new.position'

@@ -2,6 +2,14 @@
   = f.error_notification
 
   .form-inputs
+    = f.association :user
+    = f.association :support
+    = f.association :life_insurance_contracts
+    = f.input :buy_price
+    = f.input :sell_price
+    = f.input :price_paid
+    = f.input :buy_date
+    = f.input :sell_date
 
   .form-actions
     = f.button :submit

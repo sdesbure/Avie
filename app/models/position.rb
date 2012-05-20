@@ -16,4 +16,12 @@ class Position < ActiveRecord::Base
 
     worst_results.map{|result| [Position.find(result["id"]), result["gain"]]}
   end
+
+  def gain
+    if sell_price.nil? || buy_price.nil?
+      0.0
+    else
+      (sell_price - buy_price) * 100 / buy_price
+    end
+  end
 end

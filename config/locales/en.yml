@@ -26,6 +26,7 @@ en:
   positions: "Positions"
   administrator_only: "This page is for administrators only"
   support_type: "Support type"
+  must_give_support: "You must give a support or a type of support in order to create a position"
   user:
     home: "My Page"
     list:

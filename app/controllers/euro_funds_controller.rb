@@ -1,4 +1,6 @@
 class EuroFundsController < ApplicationController
+  load_and_authorize_resource
+
   # GET /euro_funds
   # GET /euro_funds.json
   def index
@@ -18,6 +20,17 @@ class EuroFundsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @euro_fund }
+    end
+  end
+
+  # GET /euro_funds/1/show_all_positions
+  # GET /euro_funds/1/show_all_positions.json
+  def show
+    @euro_fund = EuroFund.find(params[:id])
+
+    respond_to do |format|
+      format.html { render 'show' } # show.html.erb
+      format.json { render json: @euro_fund.positions }
     end
   end
 

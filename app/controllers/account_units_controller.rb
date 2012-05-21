@@ -1,4 +1,6 @@
 class AccountUnitsController < ApplicationController
+  load_and_authorize_resource
+
   # GET /account_units
   # GET /account_units.json
   def index

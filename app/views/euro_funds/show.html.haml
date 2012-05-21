@@ -17,7 +17,7 @@
                 %table.table.table-striped.table-condensed.table-bordered
                   = render :partial => 'users/user_table', :locals => {:users => @euro_fund.users } 
           - else
-            %td=t "nb_customer"
+            %td=t "nb_customers"
             %td= @euro_fund.users.count
         %tr
           - if can?(:index, LifeInsuranceContract)
@@ -52,13 +52,13 @@
             - unless (current_page?(:action => 'show') && @euro_fund.positions.active.empty?) || (!current_page?(:action => 'show') && @euro_fund.positions.empty?)
               %table.table.table-striped.table-condensed.table-bordered
                 - if current_page?(:action => 'show')
-                  =# render :partial => "positions/position_table", :locals => {:positions => @euro_fund.positions.active}
-                  =# link_to t("all_positions"), show_all_positions_euro_fund_path(@euro_fund)
+                  = render :partial => "positions/position_table", :locals => {:positions => @euro_fund.positions.active}
+                  = link_to t("all_positions"), show_all_positions_euro_fund_path(@euro_fund)
                 - else
-                  =# render :partial => "positions/position_table", :locals => {:positions => @euro_fund.positions}
-                  =# link_to t("active_positions), @euro_fund
+                  = render :partial => "positions/position_table", :locals => {:positions => @euro_fund.positions}
+                  = link_to t("active_positions"), @euro_fund
             - if can? :create, Position
-              = link_to new_position_path(:euro_fund_id => @euro_fund.id), :class => "btn btn-primary btn-small" do
+              = link_to new_euro_fund_position_path(@euro_fund), :class => "btn btn-primary btn-small" do
                 %i.icon-plus
                 =t 'new.position'
 

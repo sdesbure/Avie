@@ -6,6 +6,7 @@
 
     .form-inputs
       = f.input :email
+      = f.input :name
       = f.input :password
       = f.input :password_confirmation
       %p= raw recaptcha_tag(:challenge)

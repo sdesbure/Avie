@@ -74,5 +74,6 @@ module Avie
 
     # Recaptcha Framework configuration
     config.middleware.use Rack::Recaptcha, :public_key => ENV['RECAPTCHA_PUBLIC_KEY'] , :private_key => ENV['RECAPTCHA_PRIVATE_KEY']
+    config.middleware.use Rack::GoogleAnalytics, :tracker => ENV['GOOGLE_ANALYTICS_KEY_AVIE'] if Rails.env == "production"
   end
 end

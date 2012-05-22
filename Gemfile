@@ -19,6 +19,9 @@ gem "simple_form"
 #Pagination of results
 gem "will_paginate", ">= 3.0.3"
 
+#Google Analytics on rack
+gem 'rack-google-analytics', :require => 'rack/google-analytics'
+
 #Devise for User Managemant and CanCan and Rolify for role management
 gem "devise", ">= 2.1.0.rc2"
 gem "cancan", ">= 1.6.7"

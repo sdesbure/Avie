@@ -43,7 +43,6 @@ group :assets do
 end
 
 group :development do
-  gem 'sqlite3'
   gem "haml-rails", ">= 0.3.4"
   gem "guard", ">= 0.6.2"
   case HOST_OS
@@ -73,6 +72,7 @@ group :test do
 end
 
 group :development, :test do
+  gem 'sqlite3'
   gem "rspec-rails", ">= 2.10.1"
   gem "factory_girl_rails", ">= 3.2.0"
 end

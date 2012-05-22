@@ -5,7 +5,6 @@ source 'https://rubygems.org'
 gem 'rails', '~> 3.2.3'
 
 #Database Management
-gem 'sqlite3'
 gem 'pg'
 
 #Jquery for Javascript Library
@@ -73,6 +72,7 @@ group :test do
 end
 
 group :development, :test do
+  gem 'sqlite3'
   gem "rspec-rails", ">= 2.10.1"
   gem "factory_girl_rails", ">= 3.2.0"
 end

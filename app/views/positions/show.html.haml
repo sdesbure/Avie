@@ -5,20 +5,19 @@
     %table.table.table-striped
       %tbody
         %tr
-          %td=t "activerecord.model.user
+          %td=t "activerecord.models.user"
           - if can? :read, @position.user
             %td= link_to @position.user_name, @position.user
           - else
             %td= @position.user_name
-          %td= @position.name
         %tr
-          %td=t "activerecord.model.support"
+          %td=t "activerecord.models.support"
           - if can? :read, @position.support
             %td= link_to @position.support_name, @position.support
           - else
             %td= @position.support_name
         %tr
-          %td=t "activerecord.model.support"
+          %td=t "activerecord.models.support"
           - if can? :read, @position.life_insurance_contract
             %td= link_to @position.life_insurance_contract_to_s, @position.life_insurance_contract
           - else
@@ -32,7 +31,7 @@
         %tr
           %td=t "attributes.sell_price"
           %td= @position.sell_price
-        %tr=
+        %tr
           %td=t "attributes.price_paid"
           %td= @position.price_paid
         %tr
@@ -48,7 +47,7 @@
         - unless @position.sell_date.nil? || @position.buy_date.nil?
           %tr
             %td= t 'position_kept'
-            %td= @position.distance_of_time_in_words(@position.buy_date,@position.sell_date)
+            %td= distance_of_time_in_words(@position.buy_date,@position.sell_date)
 
   .btn-group
     - if can? :index, Position

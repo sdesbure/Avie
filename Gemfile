@@ -33,6 +33,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
   gem "twitter-bootstrap-rails", ">= 2.0.3"
   gem "therubyracer", :platform => :ruby
+  gem 'bootstrap-datepicker-rails'
 end
 
 group :development do
@@ -43,8 +44,8 @@ group :development do
       gem 'rb-fsevent'
       gem 'growl'
     when /linux/i
-      gem 'libnotify'
-      gem 'rb-inotify'
+      # gem 'libnotify'
+      # gem 'rb-inotify'
     when /mswin|windows/i
       gem 'rb-fchange'
       gem 'win32console'

@@ -27,6 +27,9 @@ en:
   administrator_only: "This page is for administrators only"
   support_type: "Support type"
   must_give_support: "You must give a support or a type of support in order to create a position"
+  gain: "gain"
+  position_kept: "Position kept"
+  all_positions: "View all positions"
   user:
     home: "My Page"
     list:
@@ -62,6 +65,8 @@ en:
     account_unit: "New account unit"
     euro_fund: "New Euro fund"
     position: "New Position"
+    position-euro_fund: "New Position with an Euro fund"
+    position-account_unit: "New Position with an account unit"
   editing:
     insurer: "Edit insurer"
     broker: "Edit broker"

@@ -18,7 +18,7 @@
             %td=t "activerecord.models.user"
             %td= link_to @life_insurance_contract.user.name, @life_insurance_contract.user unless @life_insurance_contract.user.nil?
         %tr
-          - if current_page?(:action => 'show')
+          - if @active
             %td
               =t "active_positions"
               %span.badge.badge-info= @life_insurance_contract.positions.active.count
@@ -27,18 +27,26 @@
               =t "positions"
               %span.badge.badge-info= @life_insurance_contract.positions.count
           %td
-            - unless (current_page?(:action => 'show') && @life_insurance_contract.positions.active.empty?) || (!current_page?(:action => 'show') && @life_insurance_contract.positions.empty?)
+            - unless (@active && @life_insurance_contract.positions.active.empty?) || (!@active && @life_insurance_contract.positions.empty?)
               %table.table.table-striped.table-condensed.table-bordered
-                - if current_page?(:action => 'show')
-                  =# render :partial => "positions/position_table", :locals => {:positions => @life_insurance_contract.positions.active}
-                  =# link_to t("all_positions"), show_all_positions_life_insurance_contract_path(@life_insurance_contract), :class => "btn"
+                - if @active
+                  = render :partial => "positions/position_table", :locals => {:positions => @life_insurance_contract.positions.active}
                 - else
-                  =# render :partial => "positions/position_table", :locals => {:positions => @life_insurance_contract.positions), :class => "btn"
-                  =# link_to t("active_positions), @life_insurance_contract
-            - if can? :create, Position
-              = link_to new_position_path(:life_insurance_contract_id => @life_insurance_contract.id), :class => "btn btn-primary btn-small" do
-                %i.icon-plus
-                =t "new.position"
+                  = render :partial => "positions/position_table", :locals => {:positions => @life_insurance_contract.positions}
+            - if @active && @life_insurance_contract.positions.any?
+              = link_to t("all_positions"), show_all_positions_life_insurance_contract_path(@life_insurance_contract)
+            - else 
+              - if !@active && @life_insurance_contract.positions.active.any?
+                = link_to t("active_positions"), @life_insurance_contract
+            - if can? :create, Position && user_signed_in? && current_user.life_insurance_contracts.any?
+              .btn-group
+                = link_to "#", :class => "btn dropdown-toggle btn-primary btn-small", :data => {:toggle => "dropdown"} do
+                  %i.icon-plus
+                  =t "new.position"
+                  %span.caret
+                %ul.dropdown-menu
+                  %li= link_to t("new.position-account_unit"), position_new_on_account_unit_path(:life_insurance_contract_id => @life_insurance_contract.id)
+                  %li= link_to t("new.position-euro_fund"), position_new_on_euro_fund_path(:life_insurance_contract_id => @life_insurance_contract.id)
 
   .btn-group
     - if can? :index, LifeInsuranceContract

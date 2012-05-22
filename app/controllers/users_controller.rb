@@ -9,6 +9,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     authorize! :show, @user
+    @active = !request.url.include?("show_all_positions")
   end
 
 end

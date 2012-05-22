@@ -40,7 +40,7 @@
             %table.table.table-striped.table-condensed.table-bordered
               = render :partial => "life_insurances/insurance_table", :locals => {:positions => @euro_fund.life_insurances}
         %tr
-          - if current_page?(:action => 'show')
+          - if @active
             %td
               =t "active_positions"
               %span.badge.badge-info= @euro_fund.positions.active.count
@@ -49,15 +49,18 @@
               =t "positions"
               %span.badge.badge-info= @euro_fund.positions.count
           %td
-            - unless (current_page?(:action => 'show') && @euro_fund.positions.active.empty?) || (!current_page?(:action => 'show') && @euro_fund.positions.empty?)
+            - unless (@active && @euro_fund.positions.active.empty?) || (!@active && @euro_fund.positions.empty?)
               %table.table.table-striped.table-condensed.table-bordered
-                - if current_page?(:action => 'show')
+                - if @active
                   = render :partial => "positions/position_table", :locals => {:positions => @euro_fund.positions.active}
-                  = link_to t("all_positions"), show_all_positions_euro_fund_path(@euro_fund)
                 - else
                   = render :partial => "positions/position_table", :locals => {:positions => @euro_fund.positions}
-                  = link_to t("active_positions"), @euro_fund
-            - if can? :create, Position
+            - if @active && @euro_fund.positions.any?
+              = link_to t("all_positions"), show_all_positions_euro_fund_path(@euro_fund)
+            - else 
+              - if !@active && @euro_fund.positions.active.any?
+                = link_to t("active_positions"), @euro_fund
+            - if can? :create, Position && user_signed_in? && current_user.life_insurance_contracts.any?
               = link_to new_euro_fund_position_path(@euro_fund), :class => "btn btn-primary btn-small" do
                 %i.icon-plus
                 =t 'new.position'

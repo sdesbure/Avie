@@ -6,12 +6,14 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
     :recoverable, :rememberable, :trackable, :validatable
 
-  # Setup accessible (or protected) attributes for your model
+  #### Accessible Attributes ####
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me  
 
+  #### Associations ####
   has_many :positions
   has_many :life_insurance_contracts, :dependent => :destroy
 
+  #### Methods ####
   def life_insurances
     life_insurance_contracts.map{|lic| lic.life_insurance}.uniq{|li| li.id}
   end

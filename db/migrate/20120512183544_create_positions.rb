@@ -7,8 +7,8 @@ class CreatePositions < ActiveRecord::Migration
       t.float :buy_price
       t.float :sell_price
       t.float :price_paid
-      t.datetime :buy_date
-      t.datetime :sell_date
+      t.date :buy_date
+      t.date :sell_date
 
       t.timestamps
     end

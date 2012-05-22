@@ -15,7 +15,6 @@ class PositionsController < ApplicationController
   # GET /positions/1
   # GET /positions/1.json
   def show
-    @support = find_support
 
     respond_to do |format|
       format.html # show.html.erb
@@ -23,14 +22,25 @@ class PositionsController < ApplicationController
     end
   end
 
+  # GET /positions/new_euro_fund
+  # GET /positions/new_euro_fund.json
+  def new_euro_fund
+    new_on(EuroFund)
+  end
+
+  # GET /positions/new_account_unit
+  # GET /positions/new_account_unit.json
+  def new_on_account_unit
+    new_on(AccountUnit)
+  end
+
   # GET /positions/new
   # GET /positions/new.json
   def new
     @support = find_support
-    @klass = find_support_class if @support.nil?
-    Rails.logger.debug @support.class.to_s.underscore.to_sym
+    @position.support = @support
 
-    unless @support.nil? && @klass.nil?
+    unless @support.nil?
       respond_to do |format|
         format.html # new.html.erb
         format.json { render json: @position }
@@ -45,18 +55,24 @@ class PositionsController < ApplicationController
 
   # GET /positions/1/edit
   def edit
+      @supports = @position.support_type.constantize.all
   end
 
   # POST /positions
   # POST /positions.json
   def create
     @support = find_support
+    puts @position.inspect
+    @position.support = @support unless @support.nil?
 
     respond_to do |format|
       if @position.save
         format.html { redirect_to @position, notice: 'Position was successfully created.' }
         format.json { render json: @position, status: :created, location: @position }
       else
+        @support ||= @position.support
+        klass = @position.support_type.nil? ? AccountUnit : @position.support_type.constantize
+        @supports = klass.all
         format.html { render action: "new" }
         format.json { render json: @position.errors, status: :unprocessable_entity }
       end
@@ -91,25 +107,24 @@ class PositionsController < ApplicationController
 
   private
     def find_support
-      Rails.logger.debug "Start finding support"
-      Rails.logger.debug  Position::SUPPORTS_WHITE_LIST
       params.each do |name, value|
-        Rails.logger.debug "#{name}: #{value}"
         if name =~ /(.+)_id$/
-          Rails.logger.debug $1.classify.constantize
           return $1.classify.constantize.find(value) if Position::SUPPORTS_WHITE_LIST.include?($1.to_sym)
         end
       end
       nil
     end
 
-    def find_support_class
-      Rails.logger.debug "Start finding support path"
-      Rails.logger.debug request.fullpath
-      request.fullpath.split('/').each do |path|
-        Rails.logger.debug path
-        return path.singularize.to_sym if Position::SUPPORTS_WHITE_LIST.include?(path.singularize.to_sym)
+    def new_on(klass)
+      @position = Position.new
+      @position.support_type = klass
+      @position.user = current_user
+      life_insurance_contract = LifeInsuranceContract.find(params[:life_insurance_contract_id]) unless params[:life_insurance_contract_id].nil?
+      @supports = klass.all
+
+      respond_to do |format|
+        format.html { render 'new' }
+        format.json { render json: @position }
       end
-      nil
     end
 end

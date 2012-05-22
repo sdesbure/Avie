@@ -23,7 +23,7 @@
                 %table.table.table-striped.table-condensed.table-bordered
                   = render :partial => 'users/user_table', :locals => {:users => @account_unit.users } 
           - else
-            %td=t "nb_customer"
+            %td=t "nb_customers"
             %td= @account_unit.users.count
         %tr
           - if can?(:index, LifeInsuranceContract)
@@ -42,11 +42,11 @@
             =t "insurances"
             %span.badge.badge-info= @account_unit.life_insurances.count
           %td
-          - unless @account_unit.life_insurances.empty?
-            %table.table.table-striped.table-condensed.table-bordered
-              = render :partial => "life_insurances/insurance_table", :locals => {:positions => @account_unit.life_insurances}
+            - unless @account_unit.life_insurances.empty?
+              %table.table.table-striped.table-condensed.table-bordered
+                = render :partial => "life_insurances/insurance_table", :locals => {:life_insurances => @account_unit.life_insurances}
         %tr
-          - if current_page?(:action => 'show')
+          - if @active
             %td
               =t "active_positions"
               %span.badge.badge-info= @account_unit.positions.active.count
@@ -55,16 +55,19 @@
               =t "positions"
               %span.badge.badge-info= @account_unit.positions.count
           %td
-            - unless (current_page?(:action => 'show') && @account_unit.positions.active.empty?) || (!current_page?(:action => 'show') && @account_unit.positions.empty?)
+            - unless (@active && @account_unit.positions.active.empty?) || (!@active && @account_unit.positions.empty?)
               %table.table.table-striped.table-condensed.table-bordered
-                - if current_page?(:action => 'show')
-                  =# render :partial => "positions/position_table", :locals => {:positions => @account_unit.positions.active}
-                  =# link_to t("all_positions"), show_all_positions_account_unit_path(@account_unit)
+                - if @active
+                  = render :partial => "positions/position_table", :locals => {:positions => @account_unit.positions.active}
                 - else
-                  =# render :partial => "positions/position_table", :locals => {:positions => @account_unit.positions}
-                  =# link_to t("active_positions), @account_unit
-            - if can? :create, Position
-              = link_to new_position_path(:account_unit_id => @account_unit.id), :class => "btn btn-primary btn-small" do
+                  = render :partial => "positions/position_table", :locals => {:positions => @account_unit.positions}
+            - if @active && @account_unit.positions.any?
+              = link_to t("all_positions"), show_all_positions_account_unit_path(@account_unit)
+            - else 
+              - if !@active && @account_unit.positions.active.any?
+                = link_to t("active_positions"), @account_unit
+            - if can? :create, Position && user_signed_in? && current_user.life_insurance_contracts.any?
+              = link_to new_account_unit_position_path(@account_unit), :class => "btn btn-primary btn-small" do
                 %i.icon-plus
                 =t 'new.position'
 

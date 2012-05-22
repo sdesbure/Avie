@@ -2,9 +2,3 @@
 .well
   %table.table.table-striped
     = render :partial => 'position_table', :locals => {:positions => @positions}
-%br
-
-- if can? :create, Position
-  = link_to new_position_path, :class => "btn" do
-    %i.icon-plus
-    =t 'new.position'

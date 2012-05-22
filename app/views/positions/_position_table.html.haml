@@ -9,7 +9,7 @@
     %th=t "attributes.price_paid"
     %th=t "attributes.buy_date"
     %th=t "attributes.sell_date"
-    - if can? :modify, Position && positions.any? && current_page?(:action => 'index')
+    - if can?(:modify, Position) && positions.any? && current_page?(:action => 'index')
       %th
 %tbody
   - positions.each do |position|
@@ -32,7 +32,7 @@
       %td= position.price_paid
       %td= position.buy_date
       %td= position.sell_date
-      - if can? :modify, position && current_page?(:action => 'index')
+      - if can?(:modify, position) && current_page?(:action => 'index')
         %td
           - if can? :update, position
             - link_class = "btn"

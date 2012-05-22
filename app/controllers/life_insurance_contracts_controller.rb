@@ -14,6 +14,7 @@ class LifeInsuranceContractsController < ApplicationController
   # GET /life_insurance_contracts/1
   # GET /life_insurance_contracts/1.json
   def show
+    @active = !request.url.include?("show_all_positions")
 
     respond_to do |format|
       format.html # show.html.erb

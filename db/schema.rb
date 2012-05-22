@@ -72,8 +72,8 @@ ActiveRecord::Schema.define(:version => 20120517154330) do
     t.float    "buy_price"
     t.float    "sell_price"
     t.float    "price_paid"
-    t.datetime "buy_date"
-    t.datetime "sell_date"
+    t.date     "buy_date"
+    t.date     "sell_date"
     t.datetime "created_at",                                            :null => false
     t.datetime "updated_at",                                            :null => false
   end

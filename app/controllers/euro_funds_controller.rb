@@ -4,7 +4,6 @@ class EuroFundsController < ApplicationController
   # GET /euro_funds
   # GET /euro_funds.json
   def index
-    @euro_funds = EuroFund.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,7 +14,7 @@ class EuroFundsController < ApplicationController
   # GET /euro_funds/1
   # GET /euro_funds/1.json
   def show
-    @euro_fund = EuroFund.find(params[:id])
+    @active = !request.url.include?("show_all_positions")
 
     respond_to do |format|
       format.html # show.html.erb
@@ -26,7 +25,6 @@ class EuroFundsController < ApplicationController
   # GET /euro_funds/1/show_all_positions
   # GET /euro_funds/1/show_all_positions.json
   def show
-    @euro_fund = EuroFund.find(params[:id])
 
     respond_to do |format|
       format.html { render 'show' } # show.html.erb
@@ -37,7 +35,6 @@ class EuroFundsController < ApplicationController
   # GET /euro_funds/new
   # GET /euro_funds/new.json
   def new
-    @euro_fund = EuroFund.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -47,13 +44,11 @@ class EuroFundsController < ApplicationController
 
   # GET /euro_funds/1/edit
   def edit
-    @euro_fund = EuroFund.find(params[:id])
   end
 
   # POST /euro_funds
   # POST /euro_funds.json
   def create
-    @euro_fund = EuroFund.new(params[:euro_fund])
 
     respond_to do |format|
       if @euro_fund.save
@@ -69,7 +64,6 @@ class EuroFundsController < ApplicationController
   # PUT /euro_funds/1
   # PUT /euro_funds/1.json
   def update
-    @euro_fund = EuroFund.find(params[:id])
 
     respond_to do |format|
       if @euro_fund.update_attributes(params[:euro_fund])
@@ -85,7 +79,6 @@ class EuroFundsController < ApplicationController
   # DELETE /euro_funds/1
   # DELETE /euro_funds/1.json
   def destroy
-    @euro_fund = EuroFund.find(params[:id])
     @euro_fund.destroy
 
     respond_to do |format|

@@ -19,12 +19,12 @@
 
               %table.table.table-striped.table-condensed.table-bordered
                 = render :partial => "life_insurance_contracts/contract_table", :locals => {:life_insurance_contracts => @user.life_insurance_contracts}
-            - if can? :create, LifeInsuranceContract
+            - if can?(:create, LifeInsuranceContract) && LifeInsurance.count > 0
               = link_to new_life_insurance_contract_path, :class => "btn btn-primary btn-small" do
                 %i.icon-plus
                 =t "new.contract"
         %tr
-          - if current_page?(:action => 'show')
+          - if @active
             %td
               =t "active_positions"
               %span.badge.badge-info= @user.positions.active.count
@@ -33,19 +33,30 @@
               =t "positions"
               %span.badge.badge-info= @user.positions.count
           %td
-            %table.table.table-striped.table-condensed.table-bordered
-              - if current_page?(:action => 'show')
-                - if @user.positions.active.any?
-                  =# render :partial => "positions/position_table", :locals => {:positions => @user.positions.active}
-                =# link_to t("all_positions"), user_show_all_positions_path(@user)
-              - else
-                - if @user.positions.any?
-                  =# render :partial => "positions/position_table", :locals => {:positions => @user.positions}
-                =# link_to t("active_positions"), @user
-              - if can? :create, Position
-                = link_to new_position_path, :class => "btn btn-primary btn-small" do
+            - if (@active && @user.positions.active.any?) || (!@active && @user.positions.any?)
+              %table.table.table-striped.table-condensed.table-bordered
+                - if @active
+                  - if @user.positions.active.any?
+                    = render :partial => "positions/position_table", :locals => {:positions => @user.positions.active}
+                - else
+                  - if @user.positions.any?
+                    = render :partial => "positions/position_table", :locals => {:positions => @user.positions}
+            - if @active && @user.positions.any?
+              = link_to t("all_positions"), show_all_positions_user_path(@user)
+            - else 
+              - if !@active && @user.positions.active.any?
+                = link_to t("active_positions"), @user
+            - if can?(:create, Position) && @user.life_insurance_contracts.any?
+              .btn-group
+                = link_to "#", :class => "btn dropdown-toggle btn-primary btn-small", :data => {:toggle => "dropdown"} do
                   %i.icon-plus
-                  =t "new.position" 
+                  =t "new.position"
+                  %span.caret
+                %ul.dropdown-menu
+                  %li= link_to t("new.position-account_unit"),
+                    position_new_on_account_unit_path()
+                  %li= link_to t("new.position-euro_fund"), 
+                    position_new_on_euro_fund_path()
 
   .btn-group
     = link_to  root_path, :class => 'btn' do

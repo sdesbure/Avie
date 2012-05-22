@@ -1,0 +1,9 @@
+.span2
+.span7
+  %h1=t "new.life_insurance"
+
+  = render 'form'
+
+  = link_to life_insurances_path, :class => "btn" do
+    %i.icon-arrow-left
+    =t 'shared.back'

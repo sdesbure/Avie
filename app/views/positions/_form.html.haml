@@ -1,0 +1,22 @@
+- arg =  @support.nil? ? @position : [@support, @position]
+= simple_form_for arg  do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.association :user
+    = f.association :life_insurance_contract
+    .control-group.select.optionnal
+      = f.label :support, :class => "float select"
+      .controls
+        - collection = @support.nil? ? @supports : [@support]
+        - options = options_from_collection_for_select(collection, "id", "name")
+        = select_tag "position[support_id]", options, :class => "select optionnal"
+        = hidden_field_tag("position[support_type]", @position.support_type.to_s) if @support.nil?
+    = f.input :buy_price
+    = f.input :sell_price
+    = f.input :price_paid
+    = f.input :buy_date, :as => :string, :input_html => { :data => { :behaviour => "datepicker" } }
+    = f.input :sell_date, :as => :string, :input_html => { :data => { :behaviour => "datepicker" } } 
+
+  .form-actions
+    = f.button :submit

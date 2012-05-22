@@ -1,0 +1,2 @@
+module EuroFundsHelper
+end

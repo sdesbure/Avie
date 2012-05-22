@@ -1,0 +1,10 @@
+= simple_form_for "user", :url => user_session_path do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :email
+    = f.input :password
+    = f.input :remember_me
+
+  .form-actions
+    = f.button :submit

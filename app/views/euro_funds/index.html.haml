@@ -1,0 +1,37 @@
+%h1=t "listing.euro_fund"
+.well
+  %table.table.table-striped
+    %thead
+      %tr
+        %th=t "attributes.name"
+        %th=t "nb_insurances"
+        %th=t "nb_customers"
+        %th=t "nb_active_positions"
+        %th=t "nb_positions"
+        - if can? :modify, EuroFund && @euro_funds.any?
+          %th
+    %tbody
+      - @euro_funds.each do |euro_fund|
+        %tr
+          %td= link_to euro_fund.name, euro_fund
+          %td= euro_fund.life_insurances.count
+          %td= euro_fund.users.count
+          %td= euro_fund.positions.active.count
+          %td= euro_fund.positions.count
+          - if can? :modify, euro_fund
+            %td
+              - if can? :update, euro_fund
+                = link_to edit_euro_fund_path(euro_fund), :class => "btn" do
+                  %i.icon-edit
+                  =t 'shared.edit'
+              - if can? :destroy, euro_fund
+                = link_to euro_fund, :confirm => t('shared.confirm'), :method => :delete, :class => "btn btn-danger" do
+                  %i.icon-trash
+                  =t 'shared.destroy'
+
+%br
+
+- if can? :create, AccountUnit
+  = link_to new_euro_fund_path, :class => "btn" do
+    %i.icon-plus
+    =t 'new.euro_fund'

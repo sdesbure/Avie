@@ -6,6 +6,7 @@ gem 'rails', '~> 3.2.3'
 
 #Database Management
 gem 'sqlite3'
+gem 'pg'
 
 #Jquery for Javascript Library
 gem 'jquery-rails'
@@ -19,10 +20,19 @@ gem "simple_form"
 #Pagination of results
 gem "will_paginate", ">= 3.0.3"
 
+#Google Analytics on rack
+gem 'rack-google-analytics', :require => 'rack/google-analytics'
+
 #Devise for User Managemant and CanCan and Rolify for role management
 gem "devise", ">= 2.1.0.rc2"
 gem "cancan", ">= 1.6.7"
 gem "rolify", ">= 3.1.0"
+
+#Thin as webserver
+gem 'thin'
+
+#rack-recaptcha to deal with captchas
+gem 'rack-recaptcha', :require => 'rack/recaptcha'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -30,6 +40,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
   gem "twitter-bootstrap-rails", ">= 2.0.3"
   gem "therubyracer", :platform => :ruby
+  gem 'bootstrap-datepicker-rails'
 end
 
 group :development do
@@ -40,8 +51,8 @@ group :development do
       gem 'rb-fsevent'
       gem 'growl'
     when /linux/i
-      gem 'libnotify'
-      gem 'rb-inotify'
+      # gem 'libnotify'
+      # gem 'rb-inotify'
     when /mswin|windows/i
       gem 'rb-fchange'
       gem 'win32console'

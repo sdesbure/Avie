@@ -1,0 +1,35 @@
+%h1=t "listing.insurers"
+.well
+  %table.table.table-striped
+    %thead
+      %tr
+        %th=t "attributes.name"
+        %th=t "attributes.website"
+        %th=t "nb_insurances"
+        %th=t "nb_customers"
+        - if can? :modify, Insurer && @insurers.any?
+          %th
+    %tbody
+      - @insurers.each do |insurer|
+        %tr
+          %td= link_to insurer.name, insurer
+          %td= link_to insurer.website, insurer.website
+          %td= insurer.life_insurances.count
+          %td= insurer.life_insurance_contracts.count
+          - if can? :modify, insurer
+            %td
+              - if can? :update, insurer
+                = link_to edit_insurer_path(insurer), :class => "btn" do
+                  %i.icon-edit
+                  =t 'shared.edit'
+              - if can? :destroy, insurer
+                = link_to insurer, :confirm => t('shared.confirm'), :method => :delete, :class => "btn btn-danger" do
+                  %i.icon-trash
+                  =t 'shared.destroy'
+
+%br
+
+- if can? :create, Insurer
+  = link_to new_insurer_path, :class => "btn" do
+    %i.icon-plus
+    =t 'new.insurer'

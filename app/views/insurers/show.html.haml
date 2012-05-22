@@ -1,0 +1,60 @@
+.span2
+.span8
+  %h1= "#{@insurer.class.model_name.human} #{@insurer.name}"
+  .well
+    %table.table.table-striped
+      %tbody
+        %tr
+          %td=t "attributes.name"
+          %td= @insurer.name
+        %tr
+          %td=t "attributes.website"
+          %td= link_to @insurer.website, @insurer.website
+        %tr
+          - if can? :index, LifeInsurance
+            %td
+              =t "insurances"
+              %span.badge.badge-info= @insurer.life_insurances.count
+            %td
+              - if @insurer.life_insurances.any? 
+                %table.table.table-striped.table-condensed.table-bordered
+                  = render :partial => "life_insurances/insurance_table", :locals => {:life_insurances => @insurer.life_insurances}
+          - else
+            %td=t 'nb_insurances'
+            %td= @insurer.life_insurances.count
+        %tr
+          - if can? :index, LifeInsuranceContract
+            %td
+              =t "contracts"
+              %span.badge.badge-info= @insurer.life_insurance_contracts.count
+            %td
+              - if @insurer.life_insurance_contracts.any?
+                %table.table.table-striped.table-condensed.table-bordered
+                  = render :partial => "life_insurance_contracts/contract_table", :locals => {:life_insurance_contracts => @insurer.life_insurance_contracts}
+          - else
+            %td=t "nb_contracts"
+            %td= @insurer.life_insurance_contracts.count
+        - if user_signed_in? && current_user.insurers.map{|i| i.id}.include?(@insurer.id)
+          %tr
+            %td
+              =t "user.list.contracts_insurer"
+              %span.badge.badge-info= current_user.contracts(@insurer).count
+            %td
+              - if current_user.contracts(@insurer).any?
+                %table.table.table-striped.table-condensed.table-bordered
+                  = render :partial => "life_insurance_contracts/contract_table", :locals => {:life_insurance_contracts => current_user.contracts(@insurer)}
+
+  .btn-group
+    - if can? :index, Insurer
+      = link_to insurers_path, :class => 'btn' do
+        %i.icon-arrow-left
+        =t 'shared.back'
+    - else
+      = link_to root_path, :class => 'btn' do
+        %i.icon-home
+        =t 'shared.back'
+    - if can? :update, @insurer
+      = link_to edit_insurer_path(@insurer), :class => 'btn' do
+        %i.icon-edit
+        =t 'shared.edit'
+

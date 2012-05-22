@@ -1,0 +1,35 @@
+%h1=t "listing.brokers"
+.well
+  %table.table.table-striped
+    %thead
+      %tr
+        %th=t "attributes.name"
+        %th=t "attributes.website"
+        %th=t "nb_insurances"
+        %th=t "nb_customers"
+        - if can? :modify, Broker && @brokers.any?
+          %th
+    %tbody
+      - @brokers.each do |broker|
+        %tr
+          %td= link_to broker.name, broker
+          %td= link_to broker.website, broker.website
+          %td= broker.life_insurances.count
+          %td= broker.life_insurance_contracts.count
+          - if can? :modify, broker
+            %td
+              - if can? :update, broker
+                = link_to edit_broker_path(broker), :class => "btn" do
+                  %i.icon-edit
+                  =t 'shared.edit'
+              - if can? :destroy, broker
+                = link_to broker, :confirm => t('shared.confirm'), :method => :delete, :class => "btn btn-danger" do
+                  %i.icon-trash
+                  =t 'shared.destroy'
+
+%br
+
+- if can? :create, Broker
+  = link_to new_broker_path, :class => "btn" do
+    %i.icon-plus
+    =t 'new.broker'

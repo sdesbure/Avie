@@ -1,0 +1,14 @@
+.well
+  = simple_form_for(@life_insurance_contract) do |f|
+    = f.error_notification
+
+    .form-inputs
+      =f.input :contract_number
+      =f.association :life_insurance
+      - if current_user.has_role? :admin
+        = f.association :user
+      - else
+        = f.association :user, :wrapper_html => { :disabled => ""}
+
+    .form-actions
+      = f.button :submit

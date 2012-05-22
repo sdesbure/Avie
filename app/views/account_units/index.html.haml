@@ -1,0 +1,41 @@
+%h1=t "listing.account_unit"
+.well
+  %table.table.table-striped
+    %thead
+      %tr
+        %th=t "attributes.name"
+        %th=t "attributes.code"
+        %th=t "attributes.morningstar_url"
+        %th=t "nb_insurances"
+        %th=t "nb_customers"
+        %th=t "nb_active_positions"
+        %th=t "nb_positions"
+        - if can? :modify, AccountUnit && @account_units.any?
+          %th
+    %tbody
+      - @account_units.each do |account_unit|
+        %tr
+          %td= link_to account_unit.name, account_unit
+          %td= account_unit.code
+          %td= link_to account_unit.morningstar_url
+          %td= account_unit.life_insurances.count
+          %td= account_unit.users.count
+          %td= account_unit.positions.active.count
+          %td= account_unit.positions.count
+          - if can? :modify, account_unit
+            %td
+              - if can? :update, account_unit
+                = link_to edit_account_unit_path(account_unit), :class => "btn" do
+                  %i.icon-edit
+                  =t 'shared.edit'
+              - if can? :destroy, account_unit
+                = link_to account_unit, :confirm => t('shared.confirm'), :method => :delete, :class => "btn btn-danger" do
+                  %i.icon-trash
+                  =t 'shared.destroy'
+
+%br
+
+- if can? :create, AccountUnit
+  = link_to new_account_unit_path, :class => "btn" do
+    %i.icon-plus
+    =t 'new.account_unit'

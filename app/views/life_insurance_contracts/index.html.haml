@@ -1,0 +1,10 @@
+%h1=t "listing.contract"
+.well
+  %table.table.table-striped
+    = render :partial => "contract_table", :locals => {:life_insurance_contracts => @life_insurance_contracts}
+%br
+
+-if can? :create, LifeInsuranceContract
+  = link_to new_life_insurance_contract_path, :class => "btn" do
+    %i.icon-plus
+    =t 'new.contract'

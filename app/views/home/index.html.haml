@@ -1,3 +1,73 @@
-%h3 Home
-- @users.each do |user|
-  %p User: #{link_to user.name, user}
+%h1= t "Avie"
+.span5
+  %h2= "5 #{t("best_capital_gain")}"
+  - unless @best_gains.empty?
+    %table.table.table-striped
+      %thead
+        %tr
+          %th= t "support"
+          %th= t "buy_date"
+          %th= t "sell_date"
+          %th= t "buy_price"
+          %th= t "sell_price"
+          %th= t "gain"
+      %tbody
+      - @best_gains.each do |position|
+        %tr
+          %td= position.support.to_s
+          %td= position.buy_date
+          %td= position.sell_date
+          %td= position.buy_price_to_s
+          %td= position.sell_price_to_s
+          %td= position.gain
+
+.span5
+  %h2= "5 #{t("worst_capital_gain")}"
+  - unless @worst_gains.empty?
+    %table.table.table-striped
+      %caption= t "worst_capital_gain_table"
+      %thead
+        %tr
+          %th= t "support"
+          %th= t "buy_date"
+          %th= t "sell_date"
+          %th= t "buy_price"
+          %th= t "sell_price"
+          %th= t "gain"
+      %tbody
+      - @worst_gains.each do |position|
+        %tr
+          %td= position.support.to_s
+          %td= position.buy_date
+          %td= position.sell_date
+          %td= position.buy_price_to_s
+          %td= position.sell_price_to_s
+          %td= position.gain
+
+.span5
+  %h2= "5 #{t("most_used_insurer")}"
+  - unless @best_insurers.empty?
+    %table.table.table-striped
+      %thead
+        %tr
+          %th= t "attributes.name"
+          %th= t "nb_customers"
+      %tbody
+      - @best_insurers.each do |column|
+        %tr
+          %td= link_to column.first.name, insurer_path(column.first)
+          %td= column.last
+
+.span5
+  %h2= "5 #{t("most_used_broker")}"
+  - unless @best_brokers.empty?
+    %table.table.table-striped
+      %thead
+        %tr
+          %th= t "attributes.name"
+          %th= t "nb_customers"
+      %tbody
+      - @best_brokers.each do |column|
+        %tr
+          %td= link_to column.first.name, broker_path(column.first)
+          %td= column.last

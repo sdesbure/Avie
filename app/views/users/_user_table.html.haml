@@ -1,0 +1,37 @@
+%thead
+  %tr
+    %th=t "attributes.name"
+    %th=t "attributes.email"
+    %th=t "nb_brokers"
+    %th=t "nb_insurers"
+    %th=t "nb_insurances"
+    %th=t "nb_contracts"
+    %th=t "nb_active_positions"
+    %th=t "nb_positions"
+    %th=t "sign_in_count"
+    - if can? :modify, User
+      %th
+%tbody
+  - users.each do |user|
+    %tr
+      %td= link_to user.name, user
+      %td= user.email
+      %td= user.brokers.count
+      %td= user.insurers.count
+      %td= user.life_insurances.count
+      %td= user.life_insurance_contracts.count
+      %td= user.positions.active.count
+      %td= user.positions.count
+      %td= user.sign_in_count
+      - if can? :modify, user
+        %td
+          - if can? :update, user
+            - link_class = "btn"
+            - link_class += " btn-warning" if user_signed_in? && current_user.id != user.id
+            = link_to edit_user_registration_path(user), :class => link_class do
+              %i.icon-edit
+              =t 'shared.edit'
+          - if can? :destroy, user
+            = link_to user, :confirm => t('shared.confirm'), :method => :delete, :class => "btn btn-danger" do
+              %i.icon-trash
+              =t 'shared.destroy'

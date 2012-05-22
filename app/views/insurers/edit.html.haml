@@ -1,0 +1,20 @@
+.span2
+.span7
+  %h1=t "editing.insurer"
+
+  = render 'form'
+
+  .btn-group
+    - if can? :index, Insurer
+      = link_to insurers_path, :class => 'btn' do
+        %i.icon-arrow-left
+        =t 'shared.back'  
+    - else
+      = link_to root_path, :class => 'btn' do
+        %i.icon-user
+        =t 'shared.back'
+    - if can? :read, @insurer
+      = link_to @insurer, :class => 'btn' do
+        %i.icon-eye-open
+        =t 'shared.show'
+

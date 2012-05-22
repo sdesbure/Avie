@@ -1,0 +1,11 @@
+.well
+  = simple_form_for(@account_unit) do |f|
+    = f.error_notification
+
+    .form-inputs
+      = f.input :name
+      = f.input :code
+      = f.input :morningstar_url
+
+    .form-actions
+      = f.button :submit

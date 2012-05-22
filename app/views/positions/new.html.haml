@@ -1,0 +1,9 @@
+.span2
+.span7
+  %h1=t "new.position"
+
+  = render 'form'
+
+  = link_to positions_path, :class => "btn" do
+    %i.icon-arrow-left
+    =t 'shared.back'

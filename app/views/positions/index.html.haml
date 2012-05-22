@@ -1,0 +1,4 @@
+%h1=t "listing.positions"
+.well
+  %table.table.table-striped
+    = render :partial => 'position_table', :locals => {:positions => @positions}

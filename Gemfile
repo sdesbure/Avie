@@ -5,7 +5,6 @@ source 'https://rubygems.org'
 gem 'rails', '~> 3.2.3'
 
 #Database Management
-gem 'sqlite3'
 gem 'pg'
 
 #Jquery for Javascript Library
@@ -44,6 +43,7 @@ group :assets do
 end
 
 group :development do
+  gem 'sqlite3'
   gem "haml-rails", ">= 0.3.4"
   gem "guard", ">= 0.6.2"
   case HOST_OS

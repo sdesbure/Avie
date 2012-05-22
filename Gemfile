@@ -6,6 +6,7 @@ gem 'rails', '~> 3.2.3'
 
 #Database Management
 gem 'sqlite3'
+gem 'pg'
 
 #Jquery for Javascript Library
 gem 'jquery-rails'
@@ -26,6 +27,9 @@ gem 'rack-google-analytics', :require => 'rack/google-analytics'
 gem "devise", ">= 2.1.0.rc2"
 gem "cancan", ">= 1.6.7"
 gem "rolify", ">= 3.1.0"
+
+#Thin as webserver
+gem 'thin'
 
 #rack-recaptcha to deal with captchas
 gem 'rack-recaptcha', :require => 'rack/recaptcha'
